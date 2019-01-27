@@ -2,10 +2,10 @@ import * as React from 'react';
 import { StyleSheet } from 'react-native';
 
 const styled = (element) => {
-    const styles = StyleSheet.create({
+    let styles = StyleSheet.create({
         style: element.props.style,
     });
-    const style = styles.style;
+    let style = styles.style;
 
     let styledComponent = React.forwardRef(function(props) {
         return <element.type
@@ -17,8 +17,8 @@ const styled = (element) => {
 };
 
 const create = (sheetObject) => {
-    const sheet = {};
-    for (compName in sheetObject) {
+    let sheet = {};
+    for (let compName in sheetObject) {
         sheet[compName] = styled(sheetObject[compName]);
     }
 };

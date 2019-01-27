@@ -18,7 +18,7 @@ var styled = function styled(element) {
 var create = function create(sheetObject) {
   var sheet = {};
 
-  for (compName in sheetObject) {
+  for (var compName in sheetObject) {
     sheet[compName] = styled(sheetObject[compName]);
   }
 };
