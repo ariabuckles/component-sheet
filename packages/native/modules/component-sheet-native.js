@@ -21,6 +21,8 @@ var create = function create(sheetObject) {
   for (var compName in sheetObject) {
     sheet[compName] = styled(sheetObject[compName]);
   }
+
+  return sheet;
 };
 
 var ComponentSheet = {

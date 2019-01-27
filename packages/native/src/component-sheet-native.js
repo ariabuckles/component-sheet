@@ -21,6 +21,7 @@ const create = (sheetObject) => {
     for (let compName in sheetObject) {
         sheet[compName] = styled(sheetObject[compName]);
     }
+    return sheet;
 };
 
 const ComponentSheet = {

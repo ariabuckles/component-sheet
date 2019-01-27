@@ -1,6 +1,6 @@
 {
   "name": "@component-sheet/native",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "",
   "main": "commonjs/component-sheet-native.js",
   "module": "modules/component-sheet-native.js",
