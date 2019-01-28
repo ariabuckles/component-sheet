@@ -14,6 +14,8 @@ const styled = (element) => {
             style={StyleSheet.compose(style, props.style)}
         />;
     });
+
+    return styledComponent;
 };
 
 const create = (sheetObject) => {
