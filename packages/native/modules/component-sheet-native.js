@@ -8,6 +8,7 @@ import * as React from 'react';
 import { StyleSheet } from 'react-native';
 var CS_TYPE_KEY = typeof Symbol === 'function' ? Symbol('component-sheet.react-element') : 'component-sheet.react-element';
 var REACT_TYPE_SYMBOL = React.createElement('div')['$$typeof'];
+var EMPTY_OBJ = {};
 var _ignorePropTypes = false;
 
 var compileStyle = function compileStyle(styleObj) {
@@ -50,9 +51,10 @@ var create = function create(sheetDecl) {
 
 var createElement = function createElement(type, props, child) {
   if (_ignorePropTypes || type[CS_TYPE_KEY]) {
-    var ref = props.ref,
-        key = props.key,
-        other = _objectWithoutProperties(props, ["ref", "key"]);
+    var _ref = props || EMPTY_OBJ,
+        ref = _ref.ref,
+        key = _ref.key,
+        other = _objectWithoutProperties(_ref, ["ref", "key"]);
 
     if (arguments.length > 3) {
       other.children = Array.prototype.slice.call(arguments, 2);

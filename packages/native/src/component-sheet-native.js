@@ -6,6 +6,7 @@ const CS_TYPE_KEY = (typeof Symbol === 'function') ?
     'component-sheet.react-element';
 
 const REACT_TYPE_SYMBOL = React.createElement('div')['$$typeof'];
+const EMPTY_OBJ = {};
 
 let _ignorePropTypes = false;
 
@@ -64,7 +65,7 @@ const create = (sheetDecl) => {
 const createElement = function(type, props, child) {
     if (_ignorePropTypes || type[CS_TYPE_KEY]) {
 
-        let { ref, key, ...other } = props;
+        let { ref, key, ...other } = props || EMPTY_OBJ;
         if (arguments.length > 3) {
             other.children = Array.prototype.slice.call(
                 arguments,
