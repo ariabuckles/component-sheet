@@ -24,6 +24,7 @@ var styled = function styled(element) {
       style: _reactNative.StyleSheet.compose(style, props.style)
     }));
   });
+  return styledComponent;
 };
 
 exports.styled = styled;

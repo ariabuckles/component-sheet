@@ -13,6 +13,7 @@ var styled = function styled(element) {
       style: StyleSheet.compose(style, props.style)
     }));
   });
+  return styledComponent;
 };
 
 var create = function create(sheetObject) {
