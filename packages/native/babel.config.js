@@ -14,6 +14,5 @@ module.exports = (api) => ({
                 modules: api.env("commonjs") ? "commonjs" : false,
             }
         ],
-        "@babel/preset-react",
-    ]
+    ],
 });
