@@ -38,7 +38,7 @@ const styled = (element) => {
 
 const create = (sheetDecl) => {
     _ignorePropTypes = true;
-    const sheetObj = (typeof sheetDecl === 'function') ?
+    const sheetObject = (typeof sheetDecl === 'function') ?
         sheetDecl() :
         sheetDecl;
 
@@ -52,17 +52,34 @@ const create = (sheetDecl) => {
 };
 
 const createElement = function(type, props, child) {
-    if (type[CS_TYPE_KEY]) {
-        return type.render(other, props.ref);
-    }
+    if (_ignorePropTypes || type[CS_TYPE_KEY]) {
 
-    if (_ignorePropTypes) {
-        const { ref, key, ...other } = props;
+        let { ref, key, ...other } = props;
+        if (arguments.length > 3) {
+            other.children = Array.prototype.slice.call(
+                arguments,
+                2
+            );
+        } else if (arguments.length === 3) {
+            other.children = child;
+        }
+
+        if (type[CS_TYPE_KEY]) {
+            return Object.assign(
+                {},
+                type.render(other, ref),
+                { key: key }
+            );
+        }
+
+        // if (_ignorePropTypes):
         return {
             '$$typeof': REACT_TYPE_SYMBOL,
+            type: type,
             key: key == null ? null : key,
             ref: ref == null ? null : ref,
             props: other,
+            _owner: null,
         };
     }
 
@@ -75,5 +92,7 @@ const ComponentSheet = {
     createElement: createElement,
 };
 
-export { ComponentSheet, create, styled, createElement };
+const ComponentSheet_createElement = createElement;
+
+export { ComponentSheet, create, styled, createElement, ComponentSheet_createElement };
 export default ComponentSheet;

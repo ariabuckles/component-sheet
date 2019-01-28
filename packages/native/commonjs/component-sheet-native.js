@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = exports.createElement = exports.styled = exports.create = exports.ComponentSheet = void 0;
+exports.default = exports.ComponentSheet_createElement = exports.createElement = exports.styled = exports.create = exports.ComponentSheet = void 0;
 
 var React = _interopRequireWildcard(require("react"));
 
@@ -40,7 +40,7 @@ exports.styled = styled;
 
 var create = function create(sheetDecl) {
   _ignorePropTypes = true;
-  var sheetObj = typeof sheetDecl === 'function' ? sheetDecl() : sheetDecl;
+  var sheetObject = typeof sheetDecl === 'function' ? sheetDecl() : sheetDecl;
   var sheet = {};
 
   for (var compName in sheetObject) {
@@ -54,20 +54,31 @@ var create = function create(sheetDecl) {
 exports.create = create;
 
 var createElement = function createElement(type, props, child) {
-  if (type[CS_TYPE_KEY]) {
-    return type.render(other, props.ref);
-  }
-
-  if (_ignorePropTypes) {
+  if (_ignorePropTypes || type[CS_TYPE_KEY]) {
     var ref = props.ref,
         key = props.key,
-        _other = _objectWithoutProperties(props, ["ref", "key"]);
+        other = _objectWithoutProperties(props, ["ref", "key"]);
+
+    if (arguments.length > 3) {
+      other.children = Array.prototype.slice.call(arguments, 2);
+    } else if (arguments.length === 3) {
+      other.children = child;
+    }
+
+    if (type[CS_TYPE_KEY]) {
+      return Object.assign({}, type.render(other, ref), {
+        key: key
+      });
+    } // if (_ignorePropTypes):
+
 
     return {
       '$$typeof': REACT_TYPE_SYMBOL,
+      type: type,
       key: key == null ? null : key,
       ref: ref == null ? null : ref,
-      props: _other
+      props: other,
+      _owner: null
     };
   }
 
@@ -81,5 +92,7 @@ var ComponentSheet = {
   createElement: createElement
 };
 exports.ComponentSheet = ComponentSheet;
+var ComponentSheet_createElement = createElement;
+exports.ComponentSheet_createElement = ComponentSheet_createElement;
 var _default = ComponentSheet;
 exports.default = _default;
