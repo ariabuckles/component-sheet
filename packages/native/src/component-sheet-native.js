@@ -9,11 +9,21 @@ const REACT_TYPE_SYMBOL = React.createElement('div')['$$typeof'];
 
 let _ignorePropTypes = false;
 
-const styled = (element) => {
+const compileStyle = (styleObj) => {
     let styles = StyleSheet.create({
-        style: element.props.style,
+        style: styleObj,
     });
-    let style = styles.style;
+    return styles.style;
+};
+
+const styled = (element) => {
+    let style = element.props && element.props.style;
+    if (typeof style === 'object' &&
+        style !== null &&
+        style.length === undefined
+    ) {
+        style = compileStyle(style);
+    }
 
     let styledComponent = React.forwardRef(function(props, ref) {
         return React.createElement(
@@ -39,7 +49,7 @@ const styled = (element) => {
 const create = (sheetDecl) => {
     _ignorePropTypes = true;
     const sheetObject = (typeof sheetDecl === 'function') ?
-        sheetDecl() :
+        sheetDecl(compileStyle) :
         sheetDecl;
 
     let sheet = {};

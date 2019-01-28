@@ -2,17 +2,28 @@ function _objectWithoutProperties(source, excluded) { if (source == null) return
 
 function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 import * as React from 'react';
 import { StyleSheet } from 'react-native';
 var CS_TYPE_KEY = typeof Symbol === 'function' ? Symbol('component-sheet.react-element') : 'component-sheet.react-element';
 var REACT_TYPE_SYMBOL = React.createElement('div')['$$typeof'];
 var _ignorePropTypes = false;
 
-var styled = function styled(element) {
+var compileStyle = function compileStyle(styleObj) {
   var styles = StyleSheet.create({
-    style: element.props.style
+    style: styleObj
   });
-  var style = styles.style;
+  return styles.style;
+};
+
+var styled = function styled(element) {
+  var style = element.props && element.props.style;
+
+  if (_typeof(style) === 'object' && style !== null && style.length === undefined) {
+    style = compileStyle(style);
+  }
+
   var styledComponent = React.forwardRef(function (props, ref) {
     return React.createElement(element.type, Object.assign({
       ref: ref
@@ -26,7 +37,7 @@ var styled = function styled(element) {
 
 var create = function create(sheetDecl) {
   _ignorePropTypes = true;
-  var sheetObject = typeof sheetDecl === 'function' ? sheetDecl() : sheetDecl;
+  var sheetObject = typeof sheetDecl === 'function' ? sheetDecl(compileStyle) : sheetDecl;
   var sheet = {};
 
   for (var compName in sheetObject) {
