@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { StyleSheet } from 'react-native';
+import {
+    CS_TYPE_KEY,
+    REACT_TYPE_SYMBOL,
+    EMPTY_OBJ,
+    createCreateFrom,
+    createElement,
+    ComponentSheet_createElement,
+} from '@component-sheet/core';
 
-const CS_TYPE_KEY = (typeof Symbol === 'function') ?
-    Symbol('component-sheet.react-element') :
-    'component-sheet.react-element';
-
-const REACT_TYPE_SYMBOL = React.createElement('div')['$$typeof'];
-const EMPTY_OBJ = {};
-
-let _ignorePropTypes = false;
 
 const compileStyle = (styleObj) => {
     let styles = StyleSheet.create({
@@ -47,63 +47,12 @@ const styled = (element) => {
     return styledComponent;
 };
 
-const create = (sheetDecl) => {
-    _ignorePropTypes = true;
-    const sheetObject = (typeof sheetDecl === 'function') ?
-        sheetDecl(compileStyle) :
-        sheetDecl;
-
-    let sheet = {};
-    for (let compName in sheetObject) {
-        sheet[compName] = styled(sheetObject[compName]);
-    }
-
-    _ignorePropTypes = false;
-    return sheet;
-};
-
-const createElement = function(type, props, child) {
-    if (_ignorePropTypes || type[CS_TYPE_KEY]) {
-
-        let { ref, key, ...other } = props || EMPTY_OBJ;
-        if (arguments.length > 3) {
-            other.children = Array.prototype.slice.call(
-                arguments,
-                2
-            );
-        } else if (arguments.length === 3) {
-            other.children = child;
-        }
-
-        if (type[CS_TYPE_KEY]) {
-            return Object.assign(
-                {},
-                type.render(other, ref),
-                { key: key }
-            );
-        }
-
-        // if (_ignorePropTypes):
-        return {
-            '$$typeof': REACT_TYPE_SYMBOL,
-            type: type,
-            key: key == null ? null : key,
-            ref: ref == null ? null : ref,
-            props: other,
-            _owner: null,
-        };
-    }
-
-    return React.createElement.apply(React, arguments);
-};
+const create = createCreateFrom(styled);
 
 const ComponentSheet = {
-    styled: styled,
     create: create,
     createElement: createElement,
 };
 
-const ComponentSheet_createElement = createElement;
-
-export { ComponentSheet, create, styled, createElement, ComponentSheet_createElement };
+export { ComponentSheet, create, createElement, ComponentSheet_createElement };
 export default ComponentSheet;

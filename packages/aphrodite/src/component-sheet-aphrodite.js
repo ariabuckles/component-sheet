@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { StyleSheet, css } from 'aphrodite';
-
 import {
     CS_TYPE_KEY,
     STRING_CLASSNAMES,
