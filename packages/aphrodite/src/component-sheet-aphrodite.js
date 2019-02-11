@@ -21,10 +21,11 @@ let _ignorePropTypes = false;
 const squashStyleDescriptor = (styleDescriptor) => {
     const typeOfStyleDescriptor = typeof styleDescriptor;
     if (styleDescriptor == null) {
-        return null;
+        return {};
     } else if (Array.isArray(styleDescriptor)) {
         let strings = '';
         return styleDescriptor.reduce((result, subDescriptor) => {
+            subDescriptor = squashStyleDescriptor(subDescriptor);
             let stringClassNames = result[STRING_CLASSNAMES];
             if (subDescriptor[STRING_CLASSNAMES]) {
                 stringClassNames.push(...subDescriptor[STRING_CLASSNAMES]);
@@ -33,6 +34,7 @@ const squashStyleDescriptor = (styleDescriptor) => {
             if (subDescriptor[RN_SYTLES]) {
                 rnStyles.push(...subDescriptor[RN_SYTLES]);
             }
+            // TODO(aria): Handle receiving an aphrodite style obj in here
             Object.assign(result, subDescriptor);
             result[STRING_CLASSNAMES] = stringClassNames;
             result[RN_SYTLES] = rnStyles;
@@ -68,7 +70,7 @@ const compileStyle = (styleDescriptor) => {
     if (Object.keys(styleObj).length === 0) {
         return {
             compiled: null,
-            className: stringClassNames.join(' '),
+            className: stringClassNames && stringClassNames.join(' '),
             rnStyle: rnStyles,
         }
     }
@@ -78,7 +80,7 @@ const compileStyle = (styleDescriptor) => {
     });
     return {
         compiled: styles.style,
-        className: stringClassNames.join(' '),
+        className: stringClassNames && stringClassNames.join(' '),
         rnStyle: rnStyles,
     }
 };
@@ -91,25 +93,13 @@ const styled = (element) => {
         className: stringClassName,
     } = compileStyle(className);
 
-    let compiledClassName = compiledFromClassName
-        ? stringClassName + ' ' + css(compiledFromClassName)
-        : stringClassName;
-
-    let shouldOutputToClassName = element.type === 'string' ||
+    let shouldOutputToClassName = typeof element.type === 'string' ||
         (element.type.PropTypes && element.type.PropTypes.className) ||
-        !!compiledClassName;
+        compiledFromClassName !== null || !!stringClassName;
 
     let {
         compiled: compiledFromStyle,
     } = compileStyle(style);
-
-    if (shouldOutputToClassName &&
-        Object.keys(compiledFromStyle).length !== 0)
-    {
-        compiledClassName = compiledClassName +
-            ' ' +
-            css(compiledFromStyle);
-    }
 
     let styledComponent = React.forwardRef(function(props, ref) {
         let newProps = Object.assign(
@@ -119,16 +109,19 @@ const styled = (element) => {
             elementProps,
             props
         );
+
         if (shouldOutputToClassName) {
-            newProps.className = props.className
-                ? compiledClassName + ' ' + props.className
-                : compiledClassName;
-        } else if (Object.keys(compiledFromStyle).length !== 0) {
-            newProps.style = Object.assign(
-                {},
-                compiledFromStyle,
-                props.style
-            );
+            console.log(shouldOutputToClassName, ' making a classname!');
+            newProps.className = [
+                stringClassName,
+                (compiledFromClassName || compiledFromStyle) &&
+                    css(compiledFromClassName, compiledFromStyle),
+                props.className
+            ].filter((className) => !!className).join(' ');
+
+        } else if (compiledFromStyle) {
+            console.log(shouldOutputToClassName, ' making a style obj!');
+            newProps.style = [compiledFromClassName, compiledFromStyle, props.style];
         }
 
         return React.createElement(
@@ -145,7 +138,7 @@ const styled = (element) => {
 const create = (sheetDecl) => {
     _ignorePropTypes = true;
     const sheetObject = (typeof sheetDecl === 'function') ?
-        sheetDecl(compileStyle) :compiledClassName 
+        sheetDecl(compileStyle) :
         sheetDecl;
 
     let sheet = {};

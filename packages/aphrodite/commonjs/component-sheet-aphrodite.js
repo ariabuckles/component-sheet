@@ -42,12 +42,13 @@ var squashStyleDescriptor = function squashStyleDescriptor(styleDescriptor) {
   var typeOfStyleDescriptor = _typeof(styleDescriptor);
 
   if (styleDescriptor == null) {
-    return null;
+    return {};
   } else if (Array.isArray(styleDescriptor)) {
     var _styleDescriptor$redu;
 
     var strings = '';
     return styleDescriptor.reduce(function (result, subDescriptor) {
+      subDescriptor = squashStyleDescriptor(subDescriptor);
       var stringClassNames = result[STRING_CLASSNAMES];
 
       if (subDescriptor[STRING_CLASSNAMES]) {
@@ -58,7 +59,8 @@ var squashStyleDescriptor = function squashStyleDescriptor(styleDescriptor) {
 
       if (subDescriptor[RN_SYTLES]) {
         rnStyles.push.apply(rnStyles, _toConsumableArray(subDescriptor[RN_SYTLES]));
-      }
+      } // TODO(aria): Handle receiving an aphrodite style obj in here
+
 
       Object.assign(result, subDescriptor);
       result[STRING_CLASSNAMES] = stringClassNames;
@@ -85,7 +87,7 @@ var compileStyle = function compileStyle(styleDescriptor) {
   if (Object.keys(styleObj).length === 0) {
     return {
       compiled: null,
-      className: stringClassNames.join(' '),
+      className: stringClassNames && stringClassNames.join(' '),
       rnStyle: rnStyles
     };
   }
@@ -96,7 +98,7 @@ var compileStyle = function compileStyle(styleDescriptor) {
 
   return {
     compiled: styles.style,
-    className: stringClassNames.join(' '),
+    className: stringClassNames && stringClassNames.join(' '),
     rnStyle: rnStyles
   };
 };
@@ -111,15 +113,10 @@ var styled = function styled(element) {
       compiledFromClassName = _compileStyle.compiled,
       stringClassName = _compileStyle.className;
 
-  var compiledClassName = compiledFromClassName ? stringClassName + ' ' + (0, _aphrodite.css)(compiledFromClassName) : stringClassName;
-  var shouldOutputToClassName = element.type === 'string' || element.type.PropTypes && element.type.PropTypes.className || !!compiledClassName;
+  var shouldOutputToClassName = typeof element.type === 'string' || element.type.PropTypes && element.type.PropTypes.className || compiledFromClassName !== null || !!stringClassName;
 
   var _compileStyle2 = compileStyle(style),
       compiledFromStyle = _compileStyle2.compiled;
-
-  if (shouldOutputToClassName && Object.keys(compiledFromStyle).length !== 0) {
-    compiledClassName = compiledClassName + ' ' + (0, _aphrodite.css)(compiledFromStyle);
-  }
 
   var styledComponent = React.forwardRef(function (props, ref) {
     var newProps = Object.assign({
@@ -127,9 +124,13 @@ var styled = function styled(element) {
     }, elementProps, props);
 
     if (shouldOutputToClassName) {
-      newProps.className = props.className ? compiledClassName + ' ' + props.className : compiledClassName;
-    } else if (Object.keys(compiledFromStyle).length !== 0) {
-      newProps.style = Object.assign({}, compiledFromStyle, props.style);
+      console.log(shouldOutputToClassName, ' making a classname!');
+      newProps.className = [stringClassName, (compiledFromClassName || compiledFromStyle) && (0, _aphrodite.css)(compiledFromClassName, compiledFromStyle), props.className].filter(function (className) {
+        return !!className;
+      }).join(' ');
+    } else if (compiledFromStyle) {
+      console.log(shouldOutputToClassName, ' making a style obj!');
+      newProps.style = [compiledFromClassName, compiledFromStyle, props.style];
     }
 
     return React.createElement(element.type, newProps);
@@ -142,8 +143,7 @@ exports.styled = styled;
 
 var create = function create(sheetDecl) {
   _ignorePropTypes = true;
-  var sheetObject = typeof sheetDecl === 'function' ? sheetDecl(compileStyle) : compiledClassName;
-  sheetDecl;
+  var sheetObject = typeof sheetDecl === 'function' ? sheetDecl(compileStyle) : sheetDecl;
   var sheet = {};
 
   for (var compName in sheetObject) {
