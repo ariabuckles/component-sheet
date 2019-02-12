@@ -8,7 +8,8 @@
     "build": "npm run clean && npm run build:modules && npm run build:commonjs",
     "build:modules": "BABEL_ENV=modules babel src -d modules",
     "build:commonjs": "BABEL_ENV=commonjs babel src -d commonjs",
-    "clean": "rm -rf modules commonjs"
+    "clean": "rm -rf modules commonjs",
+    "format": "prettier --write 'src/**/*.js'"
   },
   "repository": {
     "type": "git",

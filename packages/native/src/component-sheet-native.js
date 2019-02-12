@@ -9,7 +9,6 @@ import {
     ComponentSheet_createElement,
 } from '@component-sheet/core';
 
-
 const compileStyle = (styleObj) => {
     let styles = StyleSheet.create({
         style: styleObj,
@@ -19,7 +18,8 @@ const compileStyle = (styleObj) => {
 
 const styled = (element) => {
     let style = element.props && element.props.style;
-    if (typeof style === 'object' &&
+    if (
+        typeof style === 'object' &&
         style !== null &&
         style.length === undefined
     ) {
@@ -36,7 +36,10 @@ const styled = (element) => {
                 element.props,
                 props,
                 {
-                    style: StyleSheet.compose(style, props.style),
+                    style: StyleSheet.compose(
+                        style,
+                        props.style
+                    ),
                 }
             )
         );

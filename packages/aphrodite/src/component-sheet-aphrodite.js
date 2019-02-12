@@ -24,7 +24,7 @@ const compileStyle = (styleDescriptor) => {
             compiled: null,
             className: stringClassNames && stringClassNames.join(' '),
             rnStyle: rnStyles,
-        }
+        };
     }
 
     const styles = StyleSheet.create({
@@ -34,7 +34,7 @@ const compileStyle = (styleDescriptor) => {
         compiled: styles.style,
         className: stringClassNames && stringClassNames.join(' '),
         rnStyle: rnStyles,
-    }
+    };
 };
 
 const styled = (element) => {
@@ -45,13 +45,13 @@ const styled = (element) => {
         className: stringClassName,
     } = compileStyle(className);
 
-    let shouldOutputToClassName = typeof element.type === 'string' ||
+    let shouldOutputToClassName =
+        typeof element.type === 'string' ||
         (element.type.PropTypes && element.type.PropTypes.className) ||
-        compiledFromClassName !== null || !!stringClassName;
+        compiledFromClassName !== null ||
+        !!stringClassName;
 
-    let {
-        compiled: compiledFromStyle,
-    } = compileStyle(style);
+    let { compiled: compiledFromStyle } = compileStyle(style);
 
     let styledComponent = React.forwardRef(function(props, ref) {
         let newProps = Object.assign(
@@ -68,18 +68,20 @@ const styled = (element) => {
                 stringClassName,
                 (compiledFromClassName || compiledFromStyle) &&
                     css(compiledFromClassName, compiledFromStyle),
-                props.className
-            ].filter((className) => !!className).join(' ');
-
+                props.className,
+            ]
+                .filter((className) => !!className)
+                .join(' ');
         } else if (compiledFromStyle) {
             console.log(shouldOutputToClassName, ' making a style obj!');
-            newProps.style = [compiledFromClassName, compiledFromStyle, props.style];
+            newProps.style = [
+                compiledFromClassName,
+                compiledFromStyle,
+                props.style,
+            ];
         }
 
-        return React.createElement(
-            element.type,
-            newProps
-        );
+        return React.createElement(element.type, newProps);
     });
 
     styledComponent[CS_TYPE_KEY] = true;
