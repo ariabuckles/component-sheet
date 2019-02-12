@@ -1,7 +1,7 @@
 {
   "name": "component-sheet",
   "version": "0.0.1",
-  "description": "",
+  "description": "Base lerna repo for @component-sheet",
   "main": "index.js",
   "scripts": {
     "prepare": "bash scripts/link-modules.sh"
@@ -21,7 +21,12 @@
     "@babel/core": "^7.2.2",
     "@babel/preset-env": "^7.3.1",
     "@babel/preset-react": "^7.0.0",
-    "lerna": "^3.11.1"
+    "aphrodite": "^2.2.3",
+    "lerna": "^3.11.1",
+    "react": "^16.8.1",
+    "react-art": "^16.8.1",
+    "react-dom": "^16.8.1",
+    "react-native-web": "^0.10.0"
   },
   "dependencies": {
     "@component-sheet/aphrodite": "file:packages/aphrodite",
