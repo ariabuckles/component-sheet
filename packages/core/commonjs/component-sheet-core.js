@@ -73,7 +73,7 @@ var squashStyleDescriptor = function squashStyleDescriptor(styleDescriptor) {
   } else if (typeOfStyleDescriptor === 'number') {
     return _defineProperty({}, RN_SYTLES, [styleDescriptor]);
   } else {
-    throw new Error("ComponentSheet: Unsupported style: " + typeOfStyleDescriptor + ': ' + String(styleDescriptor));
+    throw new Error('ComponentSheet: Unsupported style: ' + typeOfStyleDescriptor + ': ' + String(styleDescriptor));
   }
 };
 
@@ -117,7 +117,7 @@ var createElement = function createElement(type, props, child) {
 
 
     return {
-      '$$typeof': REACT_TYPE_SYMBOL,
+      $$typeof: REACT_TYPE_SYMBOL,
       type: type,
       key: key == null ? null : key,
       ref: ref == null ? null : ref,

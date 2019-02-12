@@ -40,7 +40,7 @@ var styled = function styled(element) {
   var _ref = element.props || EMPTY_OBJ,
       style = _ref.style,
       className = _ref.className,
-      elementProps = _ref.elementProps;
+      elementProps = _objectWithoutProperties(_ref, ["style", "className"]);
 
   var _compileStyle = compileStyle(className),
       compiledFromClassName = _compileStyle.compiled,
@@ -57,12 +57,10 @@ var styled = function styled(element) {
     }, elementProps, props);
 
     if (shouldOutputToClassName) {
-      console.log(shouldOutputToClassName, ' making a classname!');
       newProps.className = [stringClassName, (compiledFromClassName || compiledFromStyle) && css(compiledFromClassName, compiledFromStyle), props.className].filter(function (className) {
         return !!className;
       }).join(' ');
     } else if (compiledFromStyle) {
-      console.log(shouldOutputToClassName, ' making a style obj!');
       newProps.style = [compiledFromClassName, compiledFromStyle, props.style];
     }
 

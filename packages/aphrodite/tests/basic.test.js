@@ -1,9 +1,6 @@
 import ComponentSheet from '@component-sheet/aphrodite';
-
 import { View } from '@khanacademy/wonder-blocks-core';
-
-import describeImplBasic from '@component-sheet/core/tests/basic.shared.js';
-
+import describeImplBasic from '@component-sheet/core/tests/basic.shared';
 import { flushToStyleTag } from 'aphrodite';
 
 describe('@component-sheet/aphrodite', () => {

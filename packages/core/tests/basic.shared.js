@@ -3,16 +3,18 @@
 import assert from 'assert';
 import { render, cleanup, waitForElement } from 'react-testing-library';
 
-import { normalizeValue } from './util.shared';
+import { normalizeValue, classOf } from './util.shared';
 
 const getComputedStyle = window.getComputedStyle;
 
+console.log('hi');
+
 let describeImpl = (ComponentSheet, View, options = {}) => {
-    const suiteName = options.suiteName ? 'basic ' + options.suiteName : 'basic';
+    const suiteName = options.suiteName || '';
     const styleKey = options.styleKey || 'style';
     const afterRender = options.afterRender || (() => null);
 
-    describe(suiteName, () => {
+    describe(('style ' + suiteName).trim(), () => {
         beforeEach(cleanup);
 
         it('should be able to position a view fullscreen', () => {
@@ -36,6 +38,27 @@ let describeImpl = (ComponentSheet, View, options = {}) => {
             assert.equal(normalizeValue(style.left), 0);
             assert.equal(normalizeValue(style.right), 0);
             assert.equal(normalizeValue(style.bottom), 0);
+        });
+    });
+
+    describe(('props ' + suiteName).trim(), () => {
+        beforeEach(cleanup);
+
+        it('should be able to specify children prop', () => {
+            const S = ComponentSheet.create({
+                ErrorNotifier: <View>
+                    <span>An error occurred</span>
+                </View>,
+            });
+
+            let { container, getByText } = render(<S.ErrorNotifier />);
+
+            let div = container.firstChild;
+            let span = div.firstChild;
+
+            assert.equal(classOf(div), HTMLDivElement);
+            assert.equal(classOf(span), HTMLSpanElement);
+            assert.equal(span.textContent, 'An error occurred');
         });
     });
 };

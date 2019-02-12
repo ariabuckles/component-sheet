@@ -38,7 +38,7 @@ const compileStyle = (styleDescriptor) => {
 };
 
 const styled = (element) => {
-    let { style, className, elementProps } = element.props || EMPTY_OBJ;
+    let { style, className, ...elementProps } = element.props || EMPTY_OBJ;
 
     let {
         compiled: compiledFromClassName,
@@ -54,6 +54,7 @@ const styled = (element) => {
     let { compiled: compiledFromStyle } = compileStyle(style);
 
     let styledComponent = React.forwardRef(function(props, ref) {
+
         let newProps = Object.assign(
             {
                 ref: ref,
@@ -63,7 +64,6 @@ const styled = (element) => {
         );
 
         if (shouldOutputToClassName) {
-            console.log(shouldOutputToClassName, ' making a classname!');
             newProps.className = [
                 stringClassName,
                 (compiledFromClassName || compiledFromStyle) &&
@@ -73,7 +73,6 @@ const styled = (element) => {
                 .filter((className) => !!className)
                 .join(' ');
         } else if (compiledFromStyle) {
-            console.log(shouldOutputToClassName, ' making a style obj!');
             newProps.style = [
                 compiledFromClassName,
                 compiledFromStyle,

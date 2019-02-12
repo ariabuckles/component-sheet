@@ -13,7 +13,9 @@
     "url": "https://github.com/ariabuckles/component-sheet/issues"
   },
   "scripts": {
-    "format": "prettier --write 'packages/*/{src,test}/**/*.js'"
+    "format": "prettier --write 'packages/*/{src,test}/**/*.js'",
+    "build": "lerna run build",
+    "test": "jest"
   },
   "homepage": "https://github.com/ariabuckles/component-sheet#readme",
   "devDependencies": {

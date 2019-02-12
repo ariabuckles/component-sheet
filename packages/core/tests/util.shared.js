@@ -5,6 +5,31 @@ const normalizeValue = (styleValue) => {
     return styleValue;
 };
 
+const classOf = (obj) => {
+    let type = typeof obj;
+    if (type !== 'object') {
+        return type;
+    }
+
+    if (obj === null) {
+        return null;
+    }
+
+    let proto = Object.getPrototypeOf(obj);
+
+    if (proto == null || proto === Object.prototype) {
+        return Object;
+    }
+    if (proto.constructor) {
+        return proto.constructor;
+    }
+    if (obj.constructor) {
+        return obj.constructor;
+    }
+    return obj;
+};
+
 export {
-    normalizeValue
+    normalizeValue,
+    classOf,
 };

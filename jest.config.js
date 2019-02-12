@@ -1,28 +1,31 @@
-const path = require("path");
+const path = require('path');
 
 module.exports = {
     moduleNameMapper: {
-        "^react-native$": path.resolve(
+        '^react-native$': path.resolve(
             __dirname,
-            "node_modules",
-            "react-native-web",
-            "dist",
-            "cjs"
+            'node_modules',
+            'react-native-web',
+            'dist',
+            'cjs'
         ),
+
+        '^@component-sheet/([^/]+)$': '@component-sheet/$1/src',
     },
 
     setupFiles: [
         path.resolve(
             __dirname,
-            "node_modules",
-            "react-native-web",
-            "jest",
-            "setup.js"
+            'node_modules',
+            'react-native-web',
+            'jest',
+            'setup.js'
         ),
         path.resolve(__dirname, 'jest.setup.js'),
     ],
 
-    testEnvironment: "jsdom",
+    testEnvironment: 'jsdom',
 
-    reporters: ["jest-spec-reporter"],
+    verbose: true,
+    reporters: ['jest-spec-reporter'],
 };
