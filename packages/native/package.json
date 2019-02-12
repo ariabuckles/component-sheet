@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/ariabuckles/component-sheet/issues"
   },
-  "homepage": "https://github.com/ariabuckles/component-sheet#readme"
+  "homepage": "https://github.com/ariabuckles/component-sheet#readme",
+  "dependencies": {
+    "@component-sheet/core": "file:../core"
+  }
 }
