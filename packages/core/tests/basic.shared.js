@@ -7,8 +7,6 @@ import { normalizeValue, classOf } from './util.shared';
 
 const getComputedStyle = window.getComputedStyle;
 
-console.log('hi');
-
 let describeImpl = (ComponentSheet, View, options = {}) => {
     const suiteName = options.suiteName || '';
     const styleKey = options.styleKey || 'style';
