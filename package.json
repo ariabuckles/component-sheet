@@ -13,7 +13,7 @@
     "url": "https://github.com/ariabuckles/component-sheet/issues"
   },
   "scripts": {
-    "format": "prettier --write 'packages/*/src/**/*.js'"
+    "format": "prettier --write 'packages/*/{src,test}/**/*.js'"
   },
   "homepage": "https://github.com/ariabuckles/component-sheet#readme",
   "devDependencies": {
@@ -21,9 +21,11 @@
     "@babel/core": "^7.2.2",
     "@babel/preset-env": "^7.3.1",
     "@babel/preset-react": "^7.0.0",
+    "@khanacademy/wonder-blocks-core": "^2.0.1",
     "aphrodite": "^2.2.3",
     "babel-jest": "^24.1.0",
     "jest": "^24.1.0",
+    "jest-spec-reporter": "^1.0.5",
     "lerna": "^3.11.1",
     "prettier": "^1.16.4",
     "react": "^16.8.1",
@@ -36,6 +38,7 @@
   "dependencies": {
     "@component-sheet/aphrodite": "file:packages/aphrodite",
     "@component-sheet/core": "file:packages/core",
-    "@component-sheet/native": "file:packages/native"
+    "@component-sheet/native": "file:packages/native",
+    "react-router-dom": "^4.3.1"
   }
 }

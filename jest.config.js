@@ -23,4 +23,6 @@ module.exports = {
     ],
 
     testEnvironment: "jsdom",
+
+    reporters: ["jest-spec-reporter"],
 };

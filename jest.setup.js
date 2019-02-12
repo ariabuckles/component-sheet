@@ -15,3 +15,5 @@ HTMLCanvasElement.prototype.getContext = function(name) {
         notImplementedGetContext.apply(this, arguments);
     }
 };
+
+global.document = window.document;
