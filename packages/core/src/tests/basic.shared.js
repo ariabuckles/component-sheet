@@ -3,6 +3,8 @@
 import assert from 'assert';
 import { render, cleanup, waitForElement } from 'react-testing-library';
 
+import { normalizeValue } from './util.shared';
+
 const getComputedStyle = window.getComputedStyle;
 
 let describeImpl = (ComponentSheet, View) => {
@@ -25,10 +27,10 @@ let describeImpl = (ComponentSheet, View) => {
 
             let style = getComputedStyle(div);
             assert.equal(style.position, 'absolute');
-            assert.equal(style.top, '0px');
-            assert.equal(style.left, '0px');
-            assert.equal(style.right, '0px');
-            assert.equal(style.bottom, '0px');
+            assert.equal(normalizeValue(style.top), 0);
+            assert.equal(normalizeValue(style.left), 0);
+            assert.equal(normalizeValue(style.right), 0);
+            assert.equal(normalizeValue(style.bottom), 0);
         });
     });
 };
