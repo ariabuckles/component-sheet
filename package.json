@@ -3,9 +3,6 @@
   "version": "0.0.1",
   "description": "Base lerna repo for @component-sheet",
   "main": "index.js",
-  "scripts": {
-    "prepare": "bash scripts/link-modules.sh"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ariabuckles/component-sheet.git"
