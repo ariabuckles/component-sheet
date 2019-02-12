@@ -8,10 +8,11 @@ import { normalizeValue } from './util.shared';
 const getComputedStyle = window.getComputedStyle;
 
 let describeImpl = (ComponentSheet, View, options = {}) => {
+    const suiteName = options.suiteName ? 'basic ' + options.suiteName : 'basic';
     const styleKey = options.styleKey || 'style';
     const afterRender = options.afterRender || (() => null);
 
-    describe('basic', () => {
+    describe(suiteName, () => {
         beforeEach(cleanup);
 
         it('should be able to position a view fullscreen', () => {

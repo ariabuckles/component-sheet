@@ -8,7 +8,14 @@ import { flushToStyleTag } from 'aphrodite';
 
 describe('@component-sheet/aphrodite', () => {
     describeImplBasic(ComponentSheet, View, {
+        suiteName: 'style prop',
         styleKey: 'style',
+        afterRender: flushToStyleTag,
+    });
+
+    describeImplBasic(ComponentSheet, 'div', {
+        suiteName: 'className prop',
+        styleKey: 'className',
         afterRender: flushToStyleTag,
     });
 });
