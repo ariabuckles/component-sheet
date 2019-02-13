@@ -9,6 +9,7 @@ class DivWithTestId extends React.Component {
         return (
             <div
                 className={this.props.className}
+                style={this.props.style}
                 data-testid={this.props.testID}
             >
                 {this.props.children}

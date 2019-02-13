@@ -118,6 +118,26 @@ let describeImpl = (ComponentSheet, View, options = {}) => {
             assert.equal(style['border-top-right-radius'], '10px');
             assert.equal(style['background-color'], 'rgb(0, 128, 255)');
         });
+
+        it('should be able to add dynamic styles at render-time', () => {
+            const S = ComponentSheet.create({
+                FixedButton: <View {...{[styleKey]: {
+                    backgroundColor: 'rgb(0, 255, 128)',
+                }}} />
+            });
+
+            let { container } = render(<S.FixedButton style={{
+                width: 100,
+                height: 20,
+            }} />);
+
+            let div = container.firstChild;
+            let style = getComputedStyle(div);
+
+            assert.equal(style['background-color'], 'rgb(0, 255, 128)');
+            assert.equal(normalizeValue(style.width), '100px');
+            assert.equal(normalizeValue(style.height), '20px');
+        });
     });
 
     describe((suiteName + ' props').trim(), () => {
