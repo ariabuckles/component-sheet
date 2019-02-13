@@ -6,8 +6,8 @@
   "module": "modules/component-sheet-native.js",
   "scripts": {
     "build": "npm run clean && npm run build:modules && npm run build:commonjs",
-    "build:modules": "BABEL_ENV=modules babel src -d modules",
-    "build:commonjs": "BABEL_ENV=commonjs babel src -d commonjs",
+    "build:modules": "BABEL_ENV=modules ../../node_modules/.bin/babel src -d modules",
+    "build:commonjs": "BABEL_ENV=commonjs ../../node_modules/.bin/babel src -d commonjs",
     "prepublish": "npm run build",
     "clean": "rm -rf modules commonjs",
     "format": "prettier --write 'src/**/*.js'"
@@ -33,5 +33,5 @@
   "publishConfig": {
     "access": "public"
   },
-  "gitHead": "766f5327a72b0123d16db781ed72e28dbbb2c5fd"
+  "gitHead": "fc06b5ba1781267be1003e24e7864b3fec5408ee"
 }

@@ -4,8 +4,8 @@
   "description": "",
   "scripts": {
     "build": "npm run clean && npm run build:modules && npm run build:commonjs",
-    "build:modules": "find . -name index.js | grep -v node_modules | sed 's/\\/index\\.js//' | BABEL_ENV=modules xargs -I% babel %/index.js -o %/index.module.js",
-    "build:commonjs": "find . -name index.js | grep -v node_modules | sed 's/\\/index\\.js//' | BABEL_ENV=commonjs xargs -I% babel %/index.js -o %/index.commonjs.js",
+    "build:modules": "find . -name index.js | grep -v node_modules | sed 's/\\/index\\.js//' | BABEL_ENV=modules xargs -I% ../../node_modules/.bin/babel %/index.js -o %/index.module.js",
+    "build:commonjs": "find . -name index.js | grep -v node_modules | sed 's/\\/index\\.js//' | BABEL_ENV=commonjs xargs -I% ../../node_modules/.bin/babel %/index.js -o %/index.commonjs.js",
     "prepublish": "npm run build",
     "clean": "rm -rf */*.commonjs.js */*.module.js",
     "format": "prettier --write '*/*.js'"
@@ -35,5 +35,5 @@
   "publishConfig": {
     "access": "public"
   },
-  "gitHead": "766f5327a72b0123d16db781ed72e28dbbb2c5fd"
+  "gitHead": "fc06b5ba1781267be1003e24e7864b3fec5408ee"
 }
