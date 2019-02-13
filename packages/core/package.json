@@ -1,6 +1,6 @@
 {
   "name": "@component-sheet/core",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "",
   "main": "commonjs/component-sheet-core.js",
   "module": "modules/component-sheet-core.js",
