@@ -1,0 +1,16 @@
+{
+  "name": "component-sheet/native",
+  "version": "0.0.0-redirect",
+  "main": "index.commonjs.js",
+  "module": "index.module.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ariabuckles/component-sheet.git"
+  },
+  "author": "Aria Buckles (https://github.com/ariabuckles)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ariabuckles/component-sheet/issues"
+  },
+  "homepage": "https://github.com/ariabuckles/component-sheet#readme"
+}

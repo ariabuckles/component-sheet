@@ -1,0 +1,37 @@
+{
+  "name": "component-sheet",
+  "version": "0.1.0",
+  "description": "",
+  "main": "commonjs/index.js",
+  "module": "modules/index.js",
+  "scripts": {
+    "build": "npm run clean && npm run build:modules && npm run build:commonjs",
+    "build:modules": "BABEL_ENV=modules find . -name index.js | grep -v node_modules | sed 's/\/index\.js//' | xargs -I% babel %/index.js -o %/index.module.js",
+    "build:commonjs": "BABEL_ENV=commonjs find . -name index.js | grep -v node_modules | sed 's/\/index\.js//' | xargs -I% babel %/index.js -o %/index.commonjs.js",
+    "clean": "rm -rf */*.commonjs.js */*.module.js",
+    "format": "prettier --write '*/*.js'",
+    "prepublish": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/ariabuckles/component-sheet.git"
+  },
+  "author": "Aria Buckles (https://github.com/ariabuckles)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ariabuckles/component-sheet/issues"
+  },
+  "homepage": "https://github.com/ariabuckles/component-sheet#readme",
+  "peerDependencies": {
+    "aphrodite": ">=1.2.0"
+  },
+  "dependencies": {
+    "@component-sheet/aphrodite": "^0.1.0",
+    "@component-sheet/core": "^0.1.0",
+    "@component-sheet/native": "^0.1.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "766f5327a72b0123d16db781ed72e28dbbb2c5fd"
+}
