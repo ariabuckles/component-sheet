@@ -109,6 +109,24 @@ let describeImpl = (ComponentSheet, View, options = {}) => {
             assert.equal(classOf(span), HTMLSpanElement);
             assert.equal(span.textContent, 'An error occurred');
         });
+
+        it('should allow adding props during render', () => {
+            const S = ComponentSheet.create({
+                WarnButton: <View {...{ [styleKey]: { backgroundColor: 'rgb(255, 128, 0)' } }} />,
+            });
+
+            let { container, getByText } = render(
+                <S.WarnButton><span>oh noes</span></S.WarnButton>
+            );
+
+            let div = container.firstChild;
+            let span = div.firstChild;
+
+            assert.equal(classOf(div), HTMLDivElement);
+            assert.equal(classOf(span), HTMLSpanElement);
+            assert.equal(span.textContent, 'oh noes');
+            assert.equal(getComputedStyle(div)['background-color'], 'rgb(255, 128, 0)');
+        });
     });
 };
 
