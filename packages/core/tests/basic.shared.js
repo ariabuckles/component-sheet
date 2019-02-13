@@ -121,15 +121,25 @@ let describeImpl = (ComponentSheet, View, options = {}) => {
 
         it('should be able to add dynamic styles at render-time', () => {
             const S = ComponentSheet.create({
-                FixedButton: <View {...{[styleKey]: {
-                    backgroundColor: 'rgb(0, 255, 128)',
-                }}} />
+                FixedButton: (
+                    <View
+                        {...{
+                            [styleKey]: {
+                                backgroundColor: 'rgb(0, 255, 128)',
+                            },
+                        }}
+                    />
+                ),
             });
 
-            let { container } = render(<S.FixedButton style={{
-                width: 100,
-                height: 20,
-            }} />);
+            let { container } = render(
+                <S.FixedButton
+                    style={{
+                        width: 100,
+                        height: 20,
+                    }}
+                />
+            );
 
             let div = container.firstChild;
             let style = getComputedStyle(div);
