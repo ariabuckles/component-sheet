@@ -22,6 +22,10 @@
   },
   "homepage": "https://github.com/ariabuckles/component-sheet#readme",
   "dependencies": {
-    "@component-sheet/core": "file:../core"
-  }
+    "@component-sheet/core": "^0.1.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "766f5327a72b0123d16db781ed72e28dbbb2c5fd"
 }

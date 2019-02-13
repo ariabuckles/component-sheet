@@ -20,5 +20,9 @@
   "bugs": {
     "url": "https://github.com/ariabuckles/component-sheet/issues"
   },
-  "homepage": "https://github.com/ariabuckles/component-sheet#readme"
+  "homepage": "https://github.com/ariabuckles/component-sheet#readme",
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "766f5327a72b0123d16db781ed72e28dbbb2c5fd"
 }
