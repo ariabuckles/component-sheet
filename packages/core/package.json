@@ -1,6 +1,6 @@
 {
   "name": "@component-sheet/core",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "",
   "main": "commonjs/component-sheet-core.js",
   "module": "modules/component-sheet-core.js",
@@ -17,7 +17,11 @@
     "url": "git+ssh://git@github.com/ariabuckles/component-sheet.git"
   },
   "author": "Aria Buckles (https://github.com/ariabuckles)",
-  "files": ["src", "commonjs", "modules"],
+  "files": [
+    "src",
+    "commonjs",
+    "modules"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/ariabuckles/component-sheet/issues"

@@ -1,6 +1,6 @@
 {
   "name": "@component-sheet/native",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "",
   "main": "commonjs/component-sheet-native.js",
   "module": "modules/component-sheet-native.js",
@@ -22,9 +22,13 @@
     "url": "https://github.com/ariabuckles/component-sheet/issues"
   },
   "homepage": "https://github.com/ariabuckles/component-sheet#readme",
-  "files": ["src", "commonjs", "modules"],
+  "files": [
+    "src",
+    "commonjs",
+    "modules"
+  ],
   "dependencies": {
-    "@component-sheet/core": "^0.1.0"
+    "@component-sheet/core": "^0.1.1"
   },
   "publishConfig": {
     "access": "public"

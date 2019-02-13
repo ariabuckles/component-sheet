@@ -1,6 +1,6 @@
 {
   "name": "component-sheet",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "",
   "scripts": {
     "build": "npm run clean && npm run build:modules && npm run build:commonjs",
@@ -20,14 +20,17 @@
     "url": "https://github.com/ariabuckles/component-sheet/issues"
   },
   "homepage": "https://github.com/ariabuckles/component-sheet#readme",
-  "files": ["aphrodite", "native"],
+  "files": [
+    "aphrodite",
+    "native"
+  ],
   "peerDependencies": {
     "aphrodite": ">=1.2.0"
   },
   "dependencies": {
-    "@component-sheet/aphrodite": "^0.1.0",
-    "@component-sheet/core": "^0.1.0",
-    "@component-sheet/native": "^0.1.0"
+    "@component-sheet/aphrodite": "^0.1.1",
+    "@component-sheet/core": "^0.1.1",
+    "@component-sheet/native": "^0.1.1"
   },
   "publishConfig": {
     "access": "public"
