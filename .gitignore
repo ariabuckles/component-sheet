@@ -60,3 +60,9 @@ typings/
 
 # next.js build output
 .next
+
+# Build output:
+packages/*/commonjs
+packages/*/modules
+packages/*/*/*.commonjs.js
+packages/*/*/*.module.js

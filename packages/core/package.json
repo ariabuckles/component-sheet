@@ -8,6 +8,7 @@
     "build": "npm run clean && npm run build:modules && npm run build:commonjs",
     "build:modules": "BABEL_ENV=modules babel src -d modules",
     "build:commonjs": "BABEL_ENV=commonjs babel src -d commonjs",
+    "prepublish": "npm run build",
     "clean": "rm -rf modules commonjs",
     "format": "prettier --write 'src/**/*.js'"
   },
@@ -16,6 +17,7 @@
     "url": "git+ssh://git@github.com/ariabuckles/component-sheet.git"
   },
   "author": "Aria Buckles (https://github.com/ariabuckles)",
+  "files": ["src", "commonjs", "modules"],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/ariabuckles/component-sheet/issues"

@@ -2,15 +2,13 @@
   "name": "component-sheet",
   "version": "0.1.0",
   "description": "",
-  "main": "commonjs/index.js",
-  "module": "modules/index.js",
   "scripts": {
     "build": "npm run clean && npm run build:modules && npm run build:commonjs",
     "build:modules": "find . -name index.js | grep -v node_modules | sed 's/\\/index\\.js//' | BABEL_ENV=modules xargs -I% babel %/index.js -o %/index.module.js",
     "build:commonjs": "find . -name index.js | grep -v node_modules | sed 's/\\/index\\.js//' | BABEL_ENV=commonjs xargs -I% babel %/index.js -o %/index.commonjs.js",
+    "prepublish": "npm run build",
     "clean": "rm -rf */*.commonjs.js */*.module.js",
-    "format": "prettier --write '*/*.js'",
-    "prepublish": "npm run build"
+    "format": "prettier --write '*/*.js'"
   },
   "repository": {
     "type": "git",
@@ -22,6 +20,7 @@
     "url": "https://github.com/ariabuckles/component-sheet/issues"
   },
   "homepage": "https://github.com/ariabuckles/component-sheet#readme",
+  "files": ["aphrodite", "native"],
   "peerDependencies": {
     "aphrodite": ">=1.2.0"
   },
