@@ -27,5 +27,4 @@ module.exports = {
     testEnvironment: 'jsdom',
 
     verbose: true,
-    reporters: ['jest-spec-reporter'],
 };

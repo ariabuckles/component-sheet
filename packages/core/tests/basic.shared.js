@@ -1,7 +1,7 @@
 // @jsx ComponentSheet.createElement
 
 import assert from 'assert';
-import { render, cleanup, waitForElement } from 'react-testing-library';
+import { render as RTLrender, cleanup, waitForElement } from 'react-testing-library';
 
 import { normalizeValue, classOf } from './util.shared';
 
@@ -12,7 +12,14 @@ let describeImpl = (ComponentSheet, View, options = {}) => {
     const styleKey = options.styleKey || 'style';
     const afterRender = options.afterRender || (() => null);
 
-    describe(('style ' + suiteName).trim(), () => {
+    const render = (elem) => {
+        let result = RTLrender(elem);
+        afterRender();
+        return result;
+    };
+
+
+    describe((suiteName + ' style').trim(), () => {
         beforeEach(cleanup);
 
         it('should be able to position a view fullscreen', () => {
@@ -27,19 +34,63 @@ let describeImpl = (ComponentSheet, View, options = {}) => {
             });
 
             let { container } = render(<cs.FullScreenContainer />);
-            afterRender();
 
             let div = container.firstChild;
             let style = getComputedStyle(div);
+
             assert.equal(style.position, 'absolute');
             assert.equal(normalizeValue(style.top), 0);
             assert.equal(normalizeValue(style.left), 0);
             assert.equal(normalizeValue(style.right), 0);
             assert.equal(normalizeValue(style.bottom), 0);
         });
+
+
+        it('should be able to set border-radius', () => {
+            const S = ComponentSheet.create({
+                YesButton: <View {...{[styleKey]: {
+                    borderRadius: 10,
+                }}} />,
+            });
+
+            let { container } = render(<S.YesButton />);
+
+            let div = container.firstChild;
+            let style = getComputedStyle(div);
+
+            assert.equal(style['border-top-left-radius'] || style['border-radius'], '10px');
+            assert.equal(style['border-top-right-radius'] || style['border-radius'], '10px');
+            assert.equal(style['border-bottom-left-radius'] || style['border-radius'], '10px');
+            assert.equal(style['border-bottom-right-radius'] || style['border-radius'], '10px');
+        });
+
+
+        it('should be able to add multiple styles', () => {
+            const S = ComponentSheet.create({
+                YesButton: <View {...{[styleKey]: [
+                    {
+                        borderTopLeftRadius: 10,
+                        borderTopRightRadius: 10,
+                    },
+                    {
+                        backgroundColor: 'rgb(0, 128, 255)',
+                    },
+                ]}} />,
+            });
+
+            let { container } = render(<S.YesButton />);
+
+            let div = container.firstChild;
+            let style = getComputedStyle(div);
+
+            assert.equal(style['border-top-left-radius'], '10px');
+            assert.equal(style['border-top-right-radius'], '10px');
+            assert.equal(style['background-color'], 'rgb(0, 128, 255)');
+        });
     });
 
-    describe(('props ' + suiteName).trim(), () => {
+
+    describe((suiteName + ' props').trim(), () => {
         beforeEach(cleanup);
 
         it('should be able to specify children prop', () => {
