@@ -29,7 +29,4 @@ const classOf = (obj) => {
     return obj;
 };
 
-export {
-    normalizeValue,
-    classOf,
-};
+export { normalizeValue, classOf };

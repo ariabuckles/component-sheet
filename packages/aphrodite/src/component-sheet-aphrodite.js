@@ -54,7 +54,6 @@ const styled = (element) => {
     let { compiled: compiledFromStyle } = compileStyle(style);
 
     let styledComponent = React.forwardRef(function(props, ref) {
-
         let newProps = Object.assign(
             {
                 ref: ref,

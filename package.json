@@ -13,7 +13,7 @@
     "url": "https://github.com/ariabuckles/component-sheet/issues"
   },
   "scripts": {
-    "format": "prettier --write 'packages/*/{src,test}/**/*.js'",
+    "format": "prettier --write 'packages/*/{src,tests}/**/*.js'",
     "build": "lerna run build",
     "test": "jest"
   },
