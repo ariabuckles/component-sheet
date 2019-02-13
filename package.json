@@ -33,13 +33,13 @@
     "react-art": "^16.8.1",
     "react-dom": "^16.8.1",
     "react-native-web": "^0.10.0",
+    "react-router-dom": "^4.3.1",
     "react-testing-library": "^5.6.1",
     "user-event": "^1.4.4"
   },
   "dependencies": {
     "@component-sheet/aphrodite": "file:packages/aphrodite",
     "@component-sheet/core": "file:packages/core",
-    "@component-sheet/native": "file:packages/native",
-    "react-router-dom": "^4.3.1"
+    "@component-sheet/native": "file:packages/native"
   }
 }
