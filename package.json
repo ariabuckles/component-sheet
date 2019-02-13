@@ -1,5 +1,6 @@
 {
-  "name": "component-sheet",
+  "name": "@component-sheet/monorepo",
+  "private": true,
   "version": "0.0.1",
   "description": "Base lerna repo for @component-sheet",
   "main": "index.js",
