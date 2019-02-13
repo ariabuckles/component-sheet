@@ -1,1 +1,2 @@
-export * from 'component-sheet-native.js';
+export * from './component-sheet-native.js';
+export { default } from './component-sheet-native.js';
