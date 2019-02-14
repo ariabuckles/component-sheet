@@ -145,5 +145,8 @@ Coming soon.
 [_]: # "parameter to `ComponentSheet.create`'s function to"
 
 
+[aphrodite]: https://github.com/Khan/aphrodite
+[react-native]: https://facebook.github.io/react-native/
+[react-native-web]: https://github.com/necolas/react-native-web
 [my-twitter]: https://twitter.com/ariabuckles
 [babel-plugin-import-jsx-pragma]: https://www.npmjs.com/package/@wordpress/babel-plugin-import-jsx-pragma
