@@ -1,6 +1,6 @@
 # ComponentSheet
 
-ComponentSheet is a better syntax for styling react elements.
+ComponentSheet is a better syntax for styling React elements.
 
 What ComponentSheet offers:
 
