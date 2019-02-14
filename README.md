@@ -19,7 +19,7 @@ What ComponentSheet offers:
     * [React Native Web][react-native-web]
     * Emotion and styled-components support coming soon
        * (Interested in using ComponentSheet with another backend?
-         [Ping me on twitter][my-twitter]
+         [Ping me on Twitter][my-twitter])
 
 
 ## Usage
