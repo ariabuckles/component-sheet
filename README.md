@@ -9,6 +9,8 @@ What ComponentSheet offers:
 
  * Style elements using JSX
 
+ * Organize your styling, and style-related props, in one place
+
  * Separate the static parts of your `render()` function
 
  * Supports multiple backends. Works seamlessly with:
@@ -24,45 +26,42 @@ What ComponentSheet offers:
 
 
 ```jsx
-const S = ComponentSheet.create({
-
+const S = ComponentSheet.create(() => {
   Container: (
-
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'stretch',
+        padding: 10,
+      }}
+    />
   ),
 
-  ButtonRow: (
-
+  Message: (
+    <div style={{ flex: 1 }}>
+        Welcome! Please continue...
+    </div>
   ),
 
-  AcceptButton: (
+  ContinueButton: (
     <button
       style={{
+        height: 30,
+        marginTop: 10,
         backgroundColor: 'green',
         borderRadius: 10,
       }}
     />
   ),
-
-  CancelButton: (
-    <button
-      style={{
-        backgroundColor: 'gray',
-        borderRadius: 10,
-      }}
-    />
-  ),
-
 });
 
-function MyComponent(props) {
+
+function MyNoticePage(props) {
   return (
     <S.Container>
-      Would you like to continue?
-
-      <S.ButtonRow>
-        <S.AcceptButton onPress={props.onContinue} />
-        <S.CancelButton onPress={props.onCancel} />
-      </S.ButtonRow>
+      <S.Message />
+      <S.ContinueButton onPress={props.onContinue} />
     </S.Container>
   );
 }
@@ -77,7 +76,11 @@ Choose one:
  * `npm install --save @component-sheet/native` (for React Native or react-native-web)
  * (more coming soon)
 
-Optionally add the jsx pragma, with either:
+ComponentSheet also supports an optional jsx pragma, which suppresses PropType warnings
+for component declarations inside ComponentSheet.create, while enabling them for the
+resultant jsx returned during rendering.
+
+You can add it with either:
 
 ```javascript
 // @jsx ComponentSheet.createElement
@@ -123,9 +126,23 @@ module.exports = {
 };
 ```
 
+## How It Works
+
+ComponentSheet takes the jsx you write in `ComponentSheet.create` and transforms
+any inline style/classname objects into compiled css using the specified backend
+library (either Aphrodite, react-native-web, or React Native).
+
+Then, when you render a component declared in your component sheet, it merges in
+the props you supply at render time, resuling in the final react element.
+
+
 ## Advanced Usage
 
 Coming soon.
+
+[_]: # "In addition, you can specify other props that should be compiled as styles, if you"
+[_]: # "have a custom component that accepts multiple style props. To do this, add a"
+[_]: # "parameter to `ComponentSheet.create`'s function to"
 
 
 [my-twitter]: https://twitter.com/ariabuckles
