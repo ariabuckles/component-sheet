@@ -1,6 +1,6 @@
 {
   "name": "component-sheet",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "",
   "scripts": {
     "build": "npm run clean && npm run build:modules && npm run build:commonjs",
@@ -29,9 +29,9 @@
     "aphrodite": ">=1.2.0"
   },
   "dependencies": {
-    "@component-sheet/aphrodite": "^0.1.3",
-    "@component-sheet/core": "^0.1.3",
-    "@component-sheet/native": "^0.1.3"
+    "@component-sheet/aphrodite": "^0.1.4",
+    "@component-sheet/core": "^0.1.4",
+    "@component-sheet/native": "^0.1.4"
   },
   "publishConfig": {
     "access": "public"

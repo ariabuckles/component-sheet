@@ -1,6 +1,6 @@
 {
   "name": "@component-sheet/aphrodite",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "",
   "main": "commonjs/component-sheet-aphrodite.js",
   "module": "modules/component-sheet-aphrodite.js",
@@ -32,7 +32,7 @@
     "aphrodite": ">=1.2.0"
   },
   "dependencies": {
-    "@component-sheet/core": "^0.1.3"
+    "@component-sheet/core": "^0.1.4"
   },
   "publishConfig": {
     "access": "public"
