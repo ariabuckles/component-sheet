@@ -66,3 +66,4 @@ packages/*/commonjs
 packages/*/modules
 packages/*/*/*.commonjs.js
 packages/*/*/*.module.js
+packages/*/README.md
