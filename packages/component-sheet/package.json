@@ -6,7 +6,8 @@
     "build": "npm run clean && npm run build:modules && npm run build:commonjs",
     "build:modules": "find . -name index.js | grep -v node_modules | sed 's/\\/index\\.js//' | BABEL_ENV=modules xargs -I% ../../node_modules/.bin/babel %/index.js -o %/index.module.js",
     "build:commonjs": "find . -name index.js | grep -v node_modules | sed 's/\\/index\\.js//' | BABEL_ENV=commonjs xargs -I% ../../node_modules/.bin/babel %/index.js -o %/index.commonjs.js",
-    "prepublish": "npm run build",
+    "prepublishOnly": "npm run build && npm run get-readme",
+    "get-readme": "cp ../../README.md .",
     "clean": "rm -rf */*.commonjs.js */*.module.js",
     "format": "prettier --write '*/*.js'"
   },
