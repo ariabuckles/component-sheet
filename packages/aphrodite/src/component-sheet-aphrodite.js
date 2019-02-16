@@ -87,7 +87,7 @@ const styled = (element) => {
     return styledComponent;
 };
 
-const create = createCreateFrom(styled);
+const create = createCreateFrom(styled, compileStyle);
 
 const ComponentSheet = {
     create: create,

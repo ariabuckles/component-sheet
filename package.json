@@ -17,7 +17,7 @@
     "format": "prettier --write 'packages/*/{src,tests}/**/*.js'",
     "build": "lerna run build",
     "clean": "lerna run clean",
-    "test": "jest"
+    "test": "lerna link && jest"
   },
   "homepage": "https://github.com/ariabuckles/component-sheet#readme",
   "devDependencies": {

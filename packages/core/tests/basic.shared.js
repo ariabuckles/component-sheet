@@ -1,5 +1,4 @@
-// @jsx ComponentSheet.createElement
-
+import * as React from 'react';
 import assert from 'assert';
 import {
     render as RTLrender,

@@ -69,8 +69,26 @@ const squashStyleDescriptor = (styleDescriptor) => {
     }
 };
 
-const createCreateFrom = (styled) => (sheetDecl) => {
-    _ignorePropTypes = true;
+const consoleError = console.error;
+const ignorePropTypes = function(message) {
+    if (
+        typeof message === 'string' &&
+        message.slice(0, 26) === 'Warning: Failed prop type:'
+    ) {
+        // Ignore prop type warnings
+        return;
+    }
+    consoleError.apply(this, arguments);
+};
+
+const createCreateFrom = (styled, compileStyle) => (sheetDecl) => {
+    if (process.env.NODE_ENV !== 'production') {
+        // Ignore prop types for ComponentSheet.create, which is creating
+        // partial props
+        console.error = ignorePropTypes;
+        _ignorePropTypes = true;
+    }
+
     const sheetObject =
         typeof sheetDecl === 'function' ? sheetDecl(compileStyle) : sheetDecl;
 
@@ -79,7 +97,11 @@ const createCreateFrom = (styled) => (sheetDecl) => {
         sheet[compName] = styled(sheetObject[compName]);
     }
 
-    _ignorePropTypes = false;
+    if (process.env.NODE_ENV !== 'production') {
+        // Re-enable proptypes checks:
+        console.error = consoleError;
+        _ignorePropTypes = false;
+    }
     return sheet;
 };
 
